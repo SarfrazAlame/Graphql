@@ -15,7 +15,7 @@ const authMiddleware = (req, res, next) => {
 const root = {
   getUser: ({ id }, req) => {
     console.log(req.authHeader);
-    
+
     // mongoose/prisma logic to get the user
     if (id === '1') {
       return { id: '1', email: 'john.doe@example.com', firstname: 'John', lastname: 'Doe' };
@@ -32,9 +32,9 @@ const root = {
 const app = express();
 
 app.get("/healthcheck", (req: any, res: any) => {
-  res.json({"msg": "hi"});
+  res.json({ "msg": "hi" });
 })
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', authMiddleware, graphqlHTTP({
   schema: schema,
   rootValue: root,
   graphiql: true,
