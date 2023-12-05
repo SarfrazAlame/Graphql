@@ -14,10 +14,11 @@ async function send() {
                 }
             }, {
                 id: true,
-                email: true
+                email: true,
+                firstname:true
             }]
         })
-        console.log(response)   
+        console.log(response.createUser)   
     }  catch(e) {
         console.log(e);
     }
