@@ -3,14 +3,15 @@ import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'graphql';
 import * as path from "path";
 
-const fs = require('fs');
+
+import fs from 'fs';
 const schemaString = fs.readFileSync(path.join(__dirname, './schema.gql'), 'utf8');
 const schema = buildSchema(schemaString);
 
-const authMiddleware = (req, res, next) => {
-  req.authHeader = req.headers.authorization;
-  next();
-}
+// const authMiddleware = (req, res, next) => {
+//   req.authHeader = req.headers.authorization;
+//   next();
+// }
 
 const root = {
   getUser: ({ id }, req) => {
@@ -31,10 +32,7 @@ const root = {
 
 const app = express();
 
-app.get("/healthcheck", (req: any, res: any) => {
-  res.json({ "msg": "hi" });
-})
-app.use('/graphql', authMiddleware, graphqlHTTP({
+app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
   graphiql: true,
@@ -43,4 +41,4 @@ app.use('/graphql', authMiddleware, graphqlHTTP({
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Running a GraphQL API server at http://localhost:${PORT}/graphql`);
-});
+});                                                                                       

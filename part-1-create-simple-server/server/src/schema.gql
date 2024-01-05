@@ -18,4 +18,3 @@ input CreateUserInput {
 type Mutation {
   createUser(input: CreateUserInput!): User!
 }
-
