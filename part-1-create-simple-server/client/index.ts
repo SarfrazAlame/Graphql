@@ -3,6 +3,7 @@ import { Chain } from "./zeus";
 const chain = Chain("http://localhost:4000/graphql");
 
 async function send() {
+
     try {
         const response = await chain("mutation")({
             createUser: [{
@@ -14,11 +15,11 @@ async function send() {
             }, {
                 id: true,
                 email: true,
-                firstname:true
+                firstname: true
             }]
         })
-        console.log(response.createUser)   
-    }  catch(e) {
+        console.log(response.createUser)
+    } catch (e) {
         console.log(e);
     }
 }
